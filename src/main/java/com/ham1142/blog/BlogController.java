@@ -5,7 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.ham1142.blog.dto.MemberDto;
 
 @Controller
 public class BlogController {
@@ -48,22 +51,61 @@ public class BlogController {
 //		return "loginOk";
 //	}
 	
+//	@RequestMapping(value = "loginOk")
+//	public ModelAndView loginOk(HttpServletRequest request, ModelAndView mv) {
+//		String mid = request.getParameter("memberid"); // tiger
+//		String mpw = request.getParameter("memberpw"); // 12345
+//		
+////		model.addAttribute("loginid", mid);
+////		model.addAttribute("loginpw", mpw);
+////		model.addAttribute("user", "홍길동");
+//		
+//		mv.addObject("loginid", mid);
+//		mv.addObject("loginpw", mpw);
+//		mv.addObject("user", "홍길동");
+//		
+//		mv.setViewName("loginOk");
+//		
+//		return mv;
+//	}
+	
+	
 	@RequestMapping(value = "loginOk")
-	public ModelAndView loginOk(HttpServletRequest request, ModelAndView mv) {
-		String mid = request.getParameter("memberid"); // tiger
-		String mpw = request.getParameter("memberpw"); // 12345
+	public String loginOk(@RequestParam("memberid") String mid, @RequestParam("memberpw") String mpw, Model model) {
 		
-//		model.addAttribute("loginid", mid);
-//		model.addAttribute("loginpw", mpw);
-//		model.addAttribute("user", "홍길동");
+		model.addAttribute("loginid", mid);
+		model.addAttribute("loginpw", mpw);
+		model.addAttribute("user", "홍길동");
+		return "loginOk";
+	}
+	@RequestMapping(value = "/join")
+	public String jpin() {
 		
-		mv.addObject("loginid", mid);
-		mv.addObject("loginpw", mpw);
-		mv.addObject("user", "홍길동");
+		return "join";
+	}
+	
+	@RequestMapping(value = "joinOk")
+	public String jpinOk(HttpServletRequest request, Model model) {
 		
-		mv.setViewName("loginOk");
+		String mid = request.getParameter("memberid");
+		String mpw = request.getParameter("memberpw");
+		String mname = request.getParameter("membername");
+		String mage = request.getParameter("memberage");
+		String memail = request.getParameter("memberemail");
+
+		MemberDto memberDto = new MemberDto(mid, mpw, mname, mage, memail);
 		
-		return mv;
+		
+//		model.addAttribute("mid", mid);
+//		model.addAttribute("mpw", mpw);
+//		model.addAttribute("mname", mname);
+//		model.addAttribute("mage", mage);
+//		model.addAttribute("memail", memail);
+		
+		model.addAttribute("mdto", memberDto);
+		
+		return "joinOk";
 	}
 	
 }
+
