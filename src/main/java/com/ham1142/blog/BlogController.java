@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BlogController {
@@ -19,9 +20,13 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value = "/member")
-	public String member() {
-		return "user/member"; // 특정 폴더 내의 jsp 파일 실행
+	public String member(Model model) {
+		
+		model.addAttribute("mname", "이순신");
+		
+		return "user/member"; // 특정 폴더 내의 jsp 파일 실행	
 	}
+	
 	@RequestMapping(value = "/user/test2")
 	public String test2() {
 		return "sample2"; // 특정 폴더 내의 jsp 파일 실행
@@ -30,17 +35,35 @@ public class BlogController {
 	public String login() {
 		return "login";
 	}
+//	@RequestMapping(value = "loginOk")
+//	public String loginOk(HttpServletRequest request, Model model) {
+//		String mid = request.getParameter("memberid"); // tiger
+//		String mpw = request.getParameter("memberpw"); // 12345
+//		
+//		model.addAttribute("loginid", mid);
+//		model.addAttribute("loginpw", mpw);
+//		model.addAttribute("user", "홍길동");
+//		
+//		
+//		return "loginOk";
+//	}
+	
 	@RequestMapping(value = "loginOk")
-	public String loginOk(HttpServletRequest request, Model model) {
+	public ModelAndView loginOk(HttpServletRequest request, ModelAndView mv) {
 		String mid = request.getParameter("memberid"); // tiger
 		String mpw = request.getParameter("memberpw"); // 12345
 		
-		model.addAttribute("loginid", mid);
-		model.addAttribute("loginpw", mpw);
-		model.addAttribute("user", "홍길동");
+//		model.addAttribute("loginid", mid);
+//		model.addAttribute("loginpw", mpw);
+//		model.addAttribute("user", "홍길동");
 		
+		mv.addObject("loginid", mid);
+		mv.addObject("loginpw", mpw);
+		mv.addObject("user", "홍길동");
 		
-		return "loginOk";
+		mv.setViewName("loginOk");
+		
+		return mv;
 	}
 	
 }

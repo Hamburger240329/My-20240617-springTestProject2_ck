@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 가입</title>
+<title>프리 게시판</title>
 </head>
 <body>
-	저는 member.jsp 입니다.<br>
-	회원이름 : ${mname }
-	
+	저는 free.jsp 입니다
 </body>
 </html>
